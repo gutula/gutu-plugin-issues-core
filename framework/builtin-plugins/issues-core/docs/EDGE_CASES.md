@@ -1,0 +1,4 @@
+- Reject issue creation when the target project does not exist for the tenant.
+- Overwrite prior assignment inbox state cleanly when an issue is reassigned.
+- Keep mention fan-out bounded to explicit notify targets.
+- Allow sessions to be attached, resumed, and closed without deleting historical activity.

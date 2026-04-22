@@ -1,0 +1,4 @@
+- Every issue belongs to a single tenant-scoped project.
+- Reporters and assignees may be either humans or agents, but assignee state is always explicit on the issue record.
+- Waiting-human and escalated issue states must create durable inbox entries.
+- Session linkage must be stored separately so issue collaboration and runtime recovery can evolve independently.

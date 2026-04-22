@@ -1,0 +1,1 @@
+Issues Core is the governed collaboration plane for projects, issues, inbox routing, and resumable issue sessions. It lets people and agent profiles participate in the same durable issue model without hiding ownership or runtime context inside ad hoc workflow payloads.

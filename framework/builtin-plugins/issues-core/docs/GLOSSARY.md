@@ -1,0 +1,4 @@
+- Issue: A governed work item tracked for people, agents, or both.
+- Project: A collaboration container that scopes issues and queue defaults.
+- Inbox Item: A durable follow-up queue entry for assignments, mentions, waiting-human work, or escalations.
+- Issue Session: Resume metadata linking an issue to a runtime session and working directory.
