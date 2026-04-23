@@ -5,6 +5,12 @@ export default definePackage({
   kind: "plugin",
   version: "0.1.0",
   displayName: "Issues Core",
+  defaultCategory: {
+    id: "business",
+    label: "Business",
+    subcategoryId: "work_management",
+    subcategoryLabel: "Work Management"
+  },
   description: "Projects, issues, comments, inbox, attachments, and resumable issue sessions for the governed work OS.",
   extends: [],
   dependsOn: [

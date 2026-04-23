@@ -4,24 +4,24 @@
 
 ## Shipped Now
 
-- Added durable resources for projects, issues, comments, activity, attachments, inbox, and issue sessions.
-- Added action contracts for project upsert, issue create and assign, comment add, attachment add, and session attach or resume.
-- Added an `issues` workspace plus `issue-builder` and `project-builder`.
-- Added integration and migration coverage for collaboration and session-handling flows.
-- Added explicit blocker dependency modeling plus guarded inbox acknowledgement and resolution flows.
+- Exports 8 governed actions: `issues.projects.upsert`, `issues.issues.create`, `issues.issues.assign`, `issues.comments.add`, `issues.attachments.add`, `issues.dependencies.link`, `issues.inbox.transition`, `issues.sessions.attach`.
+- Owns 8 resource contracts: `issues.projects`, `issues.issues`, `issues.comments`, `issues.activity`, `issues.attachments`, `issues.inbox`, `issues.dependencies`, `issues.sessions`.
+- Adds richer admin workspace contributions on top of the base UI surface.
+- Defines a durable data schema contract even though no explicit SQL helper module is exported.
 
 ## Current Gaps
 
-- Board swimlane presets and dependency-aware watch lists are not modeled yet.
-- Session evidence is linked textually rather than through a richer artifact graph.
+- No standalone plugin-owned event, job, or workflow catalog is exported yet; compose it through actions, resources, and the surrounding Gutu runtime.
+- The repo does not yet export a domain parity catalog with owned entities, reports, settings surfaces, and exception queues.
 
 ## Recommended Next
 
-- Add watch lists and dependency-aware queue or board views on top of the shipped blocker graph.
-- Expand attachment typing and evidence linkage for approvals, evals, and runtime logs.
-- Add signed project template install flows for common operating models.
+- Deepen workflow, notification, and AI handoff coverage as issues become a broader cross-plugin execution spine.
+- Add stronger SLA, queue, and reconciliation surfaces once issue state becomes operationally critical.
+- Add deeper provider, persistence, or evaluation integrations only where the shipped control-plane contracts already prove stable.
+- Expand operator diagnostics and release gating where the current lifecycle already exposes strong evidence paths.
+- Promote important downstream reactions into explicit commands, jobs, or workflow steps instead of relying on implicit coupling.
 
 ## Later / Optional
 
-- Public or external collaboration surfaces once the operator-first admin flow stabilizes.
-- Rich live-presence features after real transport adapters replace the same-process fixture state.
+- More connector breadth, richer evaluation libraries, and domain-specific copilots after the baseline contracts settle.

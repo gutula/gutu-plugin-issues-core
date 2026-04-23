@@ -4,11 +4,9 @@
   <img src="./docs/assets/gutu-mascot.png" alt="Gutu mascot" width="220" />
 </p>
 
-Governed collaboration primitives for projects, issues, comments, activity, inbox queues, attachments, and resumable issue sessions.
+Projects, issues, comments, inbox, attachments, and resumable issue sessions for the governed work OS.
 
-![Maturity: Hardened](https://img.shields.io/badge/Maturity-Hardened-0f766e) ![Verification: Docs+Build+Typecheck+Lint+Test+Contracts+Integration+Migrations](https://img.shields.io/badge/Verification-Docs%2BBuild%2BTypecheck%2BLint%2BTest%2BContracts%2BIntegration%2BMigrations-6b7280) ![DB: postgres+sqlite](https://img.shields.io/badge/DB-postgres%2Bsqlite-2563eb) ![Integration Model: Actions+Resources+Builders+UI](https://img.shields.io/badge/Integration%20Model-Actions%2BResources%2BBuilders%2BUI-6b7280)
-
-**Maturity Tier:** `Hardened`
+![Maturity: Hardened](https://img.shields.io/badge/Maturity-Hardened-2563eb) ![Verification: Build+Typecheck+Lint+Test+Contracts+Migrations+Integration](https://img.shields.io/badge/Verification-Build%2BTypecheck%2BLint%2BTest%2BContracts%2BMigrations%2BIntegration-2563eb) ![DB: postgres+sqlite](https://img.shields.io/badge/DB-postgres%2Bsqlite-2563eb) ![Integration Model: Actions+Resources+UI](https://img.shields.io/badge/Integration%20Model-Actions%2BResources%2BUI-6b7280)
 
 ## Part Of The Gutu Stack
 
@@ -16,31 +14,36 @@ Governed collaboration primitives for projects, issues, comments, activity, inbo
 | --- | --- |
 | Repo kind | First-party plugin |
 | Domain group | AI Systems |
-| Primary focus | projects, issues, comments, inbox, attachments, resumable sessions |
-| Best when | You want Multica-style agents-as-teammates collaboration without abandoning governed policy, audit, and replay-safe state. |
-| Composes through | Actions+Resources+Builders+UI |
+| Default category | Business / Work Management |
+| Primary focus | issues, work items, governed execution tracking |
+| Best when | You need a governed domain boundary with explicit contracts and independent release cadence. |
+| Composes through | Actions+Resources+UI |
 
-- `issues-core` gives the governed work OS a first-class collaboration plane instead of leaving issue state, comments, and resumable sessions hidden inside higher-level packs.
-- `company-builder-core`, `automation-core`, and future operating-model packs consume this layer rather than redefining issue workflows locally.
+- Gutu keeps plugins as independent repos with manifest-governed boundaries, compatibility channels, and verification lanes instead of hiding everything behind one giant mutable codebase.
+- This plugin is meant to compose through explicit actions, resources, jobs, workflows, and runtime envelopes, not through undocumented hook chains.
 
 ## What It Does Now
 
+Defines the governed issue and work-item domain used by AI runtimes, operators, and automations to coordinate tracked execution.
+
 - Exports 8 governed actions: `issues.projects.upsert`, `issues.issues.create`, `issues.issues.assign`, `issues.comments.add`, `issues.attachments.add`, `issues.dependencies.link`, `issues.inbox.transition`, `issues.sessions.attach`.
-- Owns 8 public resources: `issues.projects`, `issues.issues`, `issues.comments`, `issues.activity`, `issues.attachments`, `issues.inbox`, `issues.dependencies`, `issues.sessions`.
-- Adds an `issues` workspace plus `issue-builder` and `project-builder` under `tools`.
-- Persists polymorphic issue reporters and assignees, comment threads, operator inbox items, explicit blocker dependencies, and resumable runtime session linkage.
-- Gives Pack 0 and future autopilot flows a durable place to land escalations, waiting-human work, and runtime handoff context.
+- Owns 8 resource contracts: `issues.projects`, `issues.issues`, `issues.comments`, `issues.activity`, `issues.attachments`, `issues.inbox`, `issues.dependencies`, `issues.sessions`.
+- Adds richer admin workspace contributions on top of the base UI surface.
+- Defines a durable data schema contract even though no explicit SQL helper module is exported.
 
 ## Maturity
 
-`issues-core` is `Hardened` because it exports durable collaboration contracts, ships operator-facing admin surfaces, and carries unit, contract, integration, and migration coverage for the public surface.
+**Maturity Tier:** `Hardened`
+
+This tier is justified because unit coverage exists, contract coverage exists, integration coverage exists, and migration coverage exists.
 
 ## Verified Capability Summary
 
-- Group: **AI Systems**
-- Verification surface: **Docs+Build+Typecheck+Lint+Test+Contracts+Integration+Migrations**
-- Tests discovered: **6** files across unit, contract, integration, and migration lanes
-- Integration model: **Actions+Resources+Builders+UI**
+- Domain group: **AI Systems**
+- Default category: **Business / Work Management**
+- Verification surface: **Build+Typecheck+Lint+Test+Contracts+Migrations+Integration**
+- Tests discovered: **6** total files across unit, contract, integration, migration lanes
+- Integration model: **Actions+Resources+UI**
 - Database support: **postgres + sqlite**
 
 ## Dependency And Compatibility Summary
@@ -49,13 +52,13 @@ Governed collaboration primitives for projects, issues, comments, activity, inbo
 | --- | --- |
 | Package | `@plugins/issues-core` |
 | Manifest ID | `issues-core` |
-| Repo | `gutu-plugin-issues-core` |
+| Repo | [gutu-plugin-issues-core](https://github.com/gutula/gutu-plugin-issues-core) |
 | Depends On | `auth-core`, `org-tenant-core`, `role-policy-core`, `audit-core` |
 | Requested Capabilities | `ui.register.admin`, `api.rest.mount`, `data.write.issues` |
 | Provided Capabilities | `issues.issues`, `issues.projects`, `issues.inbox`, `issues.sessions` |
 | Runtime | bun>=1.3.12 |
 | Database | postgres, sqlite |
-| Integration Model | Actions+Resources+Builders+UI |
+| Integration Model | Actions+Resources+UI |
 
 ## Capability Matrix
 
@@ -63,15 +66,22 @@ Governed collaboration primitives for projects, issues, comments, activity, inbo
 | --- | --- | --- |
 | Actions | 8 | `issues.projects.upsert`, `issues.issues.create`, `issues.issues.assign`, `issues.comments.add`, `issues.attachments.add`, `issues.dependencies.link`, `issues.inbox.transition`, `issues.sessions.attach` |
 | Resources | 8 | `issues.projects`, `issues.issues`, `issues.comments`, `issues.activity`, `issues.attachments`, `issues.inbox`, `issues.dependencies`, `issues.sessions` |
-| Builders | 2 | `issue-builder`, `project-builder` |
-| Workspaces | 1 | `issues` |
-| UI | Present | issue board, issue builder, project builder, admin commands |
+| Jobs | 0 | No job catalog exported |
+| Workflows | 0 | No workflow catalog exported |
+| UI | Present | base UI surface, admin contributions |
+| Owned Entities | 0 | No explicit domain catalog yet |
+| Reports | 0 | No explicit report catalog yet |
+| Exception Queues | 0 | No explicit exception queues yet |
+| Operational Scenarios | 0 | No explicit operational scenario matrix yet |
+| Settings Surfaces | 0 | No explicit settings surface catalog yet |
+| ERPNext Refs | 0 | No direct ERPNext reference mapping declared |
 
 ## Quick Start For Integrators
 
-Use this repo inside a compatible Gutu workspace so its `workspace:*` dependencies resolve truthfully.
+Use this repo inside a **compatible Gutu workspace** or the **ecosystem certification workspace** so its `workspace:*` dependencies resolve honestly.
 
 ```bash
+# from a compatible workspace that already includes this plugin's dependency graph
 bun install
 bun run build
 bun run test
@@ -79,19 +89,14 @@ bun run docs:check
 ```
 
 ```ts
-import {
-  manifest,
-  createIssueAction,
-  assignIssueAction,
-  IssueResource,
-  IssueSessionResource
-} from "@plugins/issues-core";
+import { manifest, upsertIssueProjectAction, IssueProjectResource, adminContributions, uiSurface } from "@plugins/issues-core";
 
 console.log(manifest.id);
-console.log(createIssueAction.id);
-console.log(assignIssueAction.id);
-console.log(IssueResource.id, IssueSessionResource.id);
+console.log(upsertIssueProjectAction.id);
+console.log(IssueProjectResource.id);
 ```
+
+Use the root repo scripts for day-to-day work **after the workspace is bootstrapped**, or run the nested package directly from `framework/builtin-plugins/issues-core` if you need lower-level control.
 
 ## Current Test Coverage
 
@@ -103,17 +108,25 @@ console.log(IssueResource.id, IssueSessionResource.id);
 
 ## Known Boundaries And Non-Goals
 
-- This plugin owns collaboration state, not the lower-level AI runtime or workflow orchestration primitives.
-- It models issue-linked sessions and inbox posture, but it does not execute external runtimes by itself.
-- Rich portal-grade discussion UX and public collaboration are intentionally out of scope for this operator-first rollout.
+- Not an everything-and-the-kitchen-sink provider abstraction layer.
+- Not a substitute for explicit approval, budgeting, and audit governance in the surrounding platform.
+- Cross-plugin composition should use Gutu command, event, job, and workflow primitives. This repo should not be documented as exposing a generic WordPress-style hook system unless one is explicitly exported.
 
 ## Recommended Next Milestones
 
-- Add board swimlane presets and watch-list-aware queue views on top of the shipped blocker graph.
-- Add signed template issue/project install flows for reusable operating-model packs.
-- Deepen cross-plugin evidence linking so issue activity can directly reference approvals, evals, and runtime logs.
-- Add richer live-presence and collaboration UX once real external transports replace the same-process fixture posture.
+- Deepen workflow, notification, and AI handoff coverage as issues become a broader cross-plugin execution spine.
+- Add stronger SLA, queue, and reconciliation surfaces once issue state becomes operationally critical.
+- Add deeper provider, persistence, or evaluation integrations only where the shipped control-plane contracts already prove stable.
+- Expand operator diagnostics and release gating where the current lifecycle already exposes strong evidence paths.
+- Promote important downstream reactions into explicit commands, jobs, or workflow steps instead of relying on implicit coupling.
 
 ## More Docs
 
-See [DEVELOPER.md](./DEVELOPER.md), [TODO.md](./TODO.md), [SECURITY.md](./SECURITY.md), and [CONTRIBUTING.md](./CONTRIBUTING.md).
+See [DEVELOPER.md](./DEVELOPER.md), [TODO.md](./TODO.md), [SECURITY.md](./SECURITY.md), [CONTRIBUTING.md](./CONTRIBUTING.md). The internal domain sources used to build those docs live under:
+
+- `plugins/gutu-plugin-issues-core/framework/builtin-plugins/issues-core/docs/AGENT_CONTEXT.md`
+- `plugins/gutu-plugin-issues-core/framework/builtin-plugins/issues-core/docs/BUSINESS_RULES.md`
+- `plugins/gutu-plugin-issues-core/framework/builtin-plugins/issues-core/docs/EDGE_CASES.md`
+- `plugins/gutu-plugin-issues-core/framework/builtin-plugins/issues-core/docs/FLOWS.md`
+- `plugins/gutu-plugin-issues-core/framework/builtin-plugins/issues-core/docs/GLOSSARY.md`
+- `plugins/gutu-plugin-issues-core/framework/builtin-plugins/issues-core/docs/MANDATORY_STEPS.md`
